@@ -1,4 +1,4 @@
-package com.fl3sc0b.whitechapelai.board
+  package com.fl3sc0b.whitechapelai.board
 
 object Conventions {
   val CIRCLEBOX_SEPARATOR: Char = ','
@@ -7,7 +7,7 @@ object Conventions {
 }
 
 object BoardGraph {
-  val squareBoxesRepository = List[SquareBox](
+  val squareBoxesRepository: List[SquareBox] = List[SquareBox](
     SquareBox(id="0.2",yellow=false,List(),2),
     SquareBox(id="0.3",yellow=false,List(),3),
     SquareBox(id="1,26.1",yellow=false,List("1","26"),1),
@@ -115,7 +115,7 @@ object BoardGraph {
     SquareBox(id="177,178.1",yellow=false,List("177","178"),1),
     SquareBox(id="178,189.1",yellow=false,List("178","189"),1),
     SquareBox(id="18,19,39.0",yellow=false,List("18","19","39"),0),
-    SquareBox(id="18.1.1",yellow=false,List("18"),1),
+    SquareBox(id="18.1",yellow=false,List("18"),1),
     SquareBox(id="180,191.1",yellow=false,List("180","191"),1),
     SquareBox(id="182,183,192.1",yellow=false,List("182","183","192"),1),
     SquareBox(id="183,184.2",yellow=false,List("183","184"),2),

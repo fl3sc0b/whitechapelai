@@ -3,15 +3,15 @@ import com.fl3sc0b.whitechapelai.board.BoardGraph
 
 class BoardGraphTest extends FlatSpec {
 
-  "Length of squareBoxesRepository" must "be 234" in {
+  "squareBoxesRepository" must "have a length of 234" in {
     assert(BoardGraph.squareBoxesRepository.length == 234)
   }
 
-  "Total count of yellow square boxes in squareBoxesRepository" must "be 7" in {
+  it must "contain only 7 yellow square boxes" in {
   assert(BoardGraph.squareBoxesRepository.count(x => x.yellow) == 7)
   }
 
-  "Square boxes over the outside perimeter" must "be proper ones" in {
+  it must "contain the proper square boxes over the outside perimeter" in {
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "24.1") == 1)
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "6.2") == 1)
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "1,7.1") == 1)
@@ -73,5 +73,27 @@ class BoardGraphTest extends FlatSpec {
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "43.1*0") == 1)
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "44.3") == 1)
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "24,25.1") == 1)
+  }
+
+  it must "contain only 7 symmetrical square boxes" in {
+    assert(BoardGraph.squareBoxesRepository.filter(x => x.symmetry > -1).map(x => x.adjacentCircles).toSet.size == 7)
+  }
+
+  it must "contain any of the proper symmetrical square boxes" in {
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "188.2*0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "188.2*1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "43.1*0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "43.1*1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "58,73.1*0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "58,73.1*1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "84.1*0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "84.1*1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "95.2*0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "95.2*1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "98.1*0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "98.1*1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "161.1*0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "161.1*1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "161.1*2") == 1)
   }
 }

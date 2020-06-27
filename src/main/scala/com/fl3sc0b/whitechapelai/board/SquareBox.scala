@@ -12,4 +12,9 @@ case class SquareBox(id: String, yellow: Boolean, adjacentCircles: List[String],
       else ""
     )
   }
+
+  def isSymmetricalFrom(s: SquareBox): Boolean = {
+    this.adjacentCircles == s.adjacentCircles && this.adjacentSquaresCount == s.adjacentSquaresCount &&
+                            this.symmetry != s.symmetry
+  }
 }

@@ -1,10 +1,16 @@
 import org.scalatest._
 import com.fl3sc0b.whitechapelai.board.BoardGraph
+import com.fl3sc0b.whitechapelai.board.Utilities
 
 class BoardGraphTest extends FlatSpec {
 
   "squareBoxesRepository" must "have a length of 234" in {
     assert(BoardGraph.squareBoxesRepository.length == 234)
+  }
+
+  it must "have all of its elements inside adjacentCircles in ascending order" in {
+    val intCircles: List[List[Int]] = BoardGraph.squareBoxesRepository.map(x => x.adjacentCircles.map(x => x.toInt))
+    assert(intCircles.forall(x => Utilities.isSorted(x)))
   }
 
   it must "contain only 7 yellow square boxes" in {
@@ -79,7 +85,7 @@ class BoardGraphTest extends FlatSpec {
     assert(BoardGraph.squareBoxesRepository.filter(x => x.symmetry > -1).map(x => x.adjacentCircles).toSet.size == 7)
   }
 
-  it must "contain any of the proper symmetrical square boxes" in {
+  it must "contain each of the proper symmetrical square boxes" in {
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "188.2*0") == 1)
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "188.2*1") == 1)
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "43.1*0") == 1)
@@ -95,5 +101,101 @@ class BoardGraphTest extends FlatSpec {
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "161.1*0") == 1)
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "161.1*1") == 1)
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "161.1*2") == 1)
+  }
+
+  it must "contain each of the selected square boxes from the first sector" in {
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "44,46.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "48,62.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "81,118.0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "25,44.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "29.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "8,26,28.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "45,46,47.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "45,47,61.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "78,96.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "7,26.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "78,79.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "9,11.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "46,48.3") == 1)
+  }
+
+  it must "contain each of the selected square boxes from the second sector" in {
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "31,52.0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "53,68.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "10,30.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "31,32.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "15,33,34.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "65,83.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "69,102.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "4,11,12.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "63,65,82.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "100.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "99,100,120.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "99.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "17,36,38.1") == 1)
+  }
+
+  it must "contain each of the selected square boxes from the third sector" in {
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "56,57.0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "41,42,58.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "88.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "105,106,107.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "71,104.0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "108,110,132.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "75,90.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "104,105,130.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "71,72,88.0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "91,92,93.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "87.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "72,73,74.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "22,42.0") == 1)
+  }
+
+  it must "contain each of the selected square boxes from the fourth sector" in {
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "150.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "118.3") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "114,115,137.0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "175.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "138,164.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "139,150.3") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "96,114.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "115,116.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "97,117.0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "113,114.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "166,176.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "136,149.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "137,138.1") == 1)
+  }
+
+  it must "contain each of the selected square boxes from the fifth sector" in {
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "122,123.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "102,127,143.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "152,153.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "141,170.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "141,155.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "165,167.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "154,168,169,170.0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "119,121.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "143.3") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "123,125.4") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "0.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "142,143.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "186,193.1") == 1)
+  }
+
+  it must "contain each of the selected square boxes from the sixth sector" in {
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "193.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "159,172.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "103,127,128.0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "129,144,145.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "131.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "132,133,134.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "104,145.0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "145,160.0") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "159.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "185,187.3") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "186,187.1") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "183,184.2") == 1)
+    assert(BoardGraph.squareBoxesRepository.count(x => x.id == "156,157.1") == 1)
   }
 }

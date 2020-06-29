@@ -180,6 +180,7 @@ object BoardGraph {
     SquareBox(id="52,53,67.0",yellow=false,List("52","53","67"),0),
     SquareBox(id="52,54.1",yellow=false,List("52","54"),1),
     SquareBox(id="53,54.2",yellow=false,List("53","54"),2),
+    SquareBox(id="53,68.1",yellow=false,List("53","68"),1),
     SquareBox(id="55.2",yellow=false,List("55"),2),
     SquareBox(id="56,57.0",yellow=false,List("56","57"),0),
     SquareBox(id="56.1",yellow=false,List("56"),1),

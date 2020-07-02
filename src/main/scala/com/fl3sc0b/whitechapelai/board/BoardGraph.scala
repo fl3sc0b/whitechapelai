@@ -1,6 +1,8 @@
   package com.fl3sc0b.whitechapelai.board
 
-object Conventions {
+  import scala.collection.immutable.Stream.Empty
+
+  object Conventions {
   val CIRCLEBOX_SEPARATOR: Char = ','
   val SQUAREBOX_COUNTER_SEPARATOR: Char = '.'
   val SQUAREBOX_SYMMETRY_SEPARATOR: Char = '*'
@@ -243,4 +245,43 @@ object BoardGraph {
     SquareBox(id="99,100,120.1",yellow=false,List("99","100","120"),1),
     SquareBox(id="99.2",yellow=false,List("99"),2)
   )
+
+  val circleBoxesRepository: List[CircleBox] = List[CircleBox](
+    CircleBox("1",1,false,List("1,7.1", "1,26.1")),
+    CircleBox("2",2,false,List("2.2", "2,3.1")),
+    CircleBox("3",3,true,List("2,3.1", "3,4,5.0")),
+    CircleBox("4",4,false,List("3,4,5.0", "4,11,12.1")),
+    CircleBox("5",5,false,List("3,4,5.0", "5.2")),
+    CircleBox("6",6,false,List("6.2", "6,24,25.1")),
+    CircleBox("7",7,false,List("1,7.1", "7,26.2")),
+    CircleBox("8",8,false,List("8,9,10.0", "8,26,28.1")),
+    CircleBox("9",9,false,List("8,9,10.0", "9,11.1")),
+    CircleBox("10",10,false,List("8,9,10.0", "10,30.1")),
+    CircleBox("11",11,false,List("4,11,12.1", "9,11.1")),
+    CircleBox("12",12,false,List("4,11,12.1", "12,13.1")),
+    CircleBox("13",13,false,List("12,13.1", "13,14,32.1")),
+    CircleBox("14",14,false,List("13,14,32.1", "14,33,54.1")),
+    CircleBox("15",15,false,List("15.2", "15,33,34.1")),
+    CircleBox("16",16,false,List("16,17.1", "16,35,36.1")),
+    CircleBox("17",17,false,List("16,17.1", "17,18.1", "17,36,38.1")),
+    CircleBox("18",18,false,List("17,18.1", "18.1", "18,19,39.0")),
+    CircleBox("19",19,false,List("18,19,39.0", "19,20.1")),
+    CircleBox("20",20,false,List("19,20.1", "20,40.1"))
+  )
+
+  val connections= Map[String, List[Box]](
+    "1" -> (oppositeBoxesConnections("1") ::: List.empty)//,
+    //"24.1" -> (oppositeBoxesConnections("24.1") ::: squareBoxesRepository.filter(x => x.id == "6.2")),
+    //"26" -> (oppositeBoxesConnections("26") ::: circleBoxesRepository.filter(x => x.id == "28"))
+  )
+
+  def oppositeBoxesConnections(id: String): List[Box] = {
+    if (id.contains(Conventions.SQUAREBOX_COUNTER_SEPARATOR)) {
+      squareBoxesRepository.filter(x => x.id == id).head.adjacentCircles.map(x => circleBoxesRepository.filter(
+        y => y.id == x).head)
+    } else {
+      circleBoxesRepository.filter(x => x.id == id).head.adjacentSquares.map(x => squareBoxesRepository.filter(
+        y => y.id == x).head)
+    }
+  }
 }

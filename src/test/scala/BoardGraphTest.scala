@@ -9,8 +9,8 @@ class BoardGraphTest extends FlatSpec {
   }
 
   it must "have all of its elements inside adjacentCircles in ascending order" in {
-    val intCircles: List[List[Int]] = BoardGraph.squareBoxesRepository.map(x => x.adjacentCircles.map(x => x.toInt))
-    assert(intCircles.forall(x => Utilities.isSorted(x)))
+    val numCircles: List[List[Int]] = BoardGraph.squareBoxesRepository.map(x => x.adjacentCircles.map(x => x.toInt))
+    assert(numCircles.forall(x => Utilities.isSorted(x)))
   }
 
   it must "contain only 7 yellow square boxes" in {
@@ -197,5 +197,33 @@ class BoardGraphTest extends FlatSpec {
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "186,187.1") == 1)
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "183,184.2") == 1)
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "156,157.1") == 1)
+  }
+
+  it must "have only two elements which no are connected with any circle box" in {
+    val idSquares: List[String] = BoardGraph.squareBoxesRepository.map(x => x.id)
+    val idAdjacentSquares: List[List[String]] = BoardGraph.circleBoxesRepository.map(x => x.adjacentSquares)
+    assert(idSquares.map(x => idAdjacentSquares.count(y => y.contains(x))).count(x => x == 0) == 2)
+  }
+
+  "circleBoxesRepository" must "have a length of 195" in {
+    assert(BoardGraph.circleBoxesRepository.length == 195)
+  }
+
+  it must "have proper numerical versions of the ids" in {
+     assert(BoardGraph.circleBoxesRepository.forall(x => x.id.toInt == x.number))
+  }
+
+  it must "have its numerical versions of the ids in ascending order" in {
+    val numCircles: List[Short] = BoardGraph.circleBoxesRepository.map(x => x.number)
+    assert(Utilities.isSorted(numCircles))
+  }
+
+  it must "have all of its lists of adjacent square boxes composed of existing elements" in {
+    val idSquares: List[List[String]] = BoardGraph.circleBoxesRepository.map(x => x.adjacentSquares)
+    assert(idSquares.forall(x => x.forall(y => BoardGraph.squareBoxesRepository.count(z => z.id == y) == 1)))
+  }
+
+  it must "contain only 8 red circle boxes" in {
+    assert(BoardGraph.circleBoxesRepository.count(x => x.red) == 8)
   }
 }

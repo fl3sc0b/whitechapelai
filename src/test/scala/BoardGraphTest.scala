@@ -226,4 +226,8 @@ class BoardGraphTest extends FlatSpec {
   it must "contain only 8 red circle boxes" in {
     assert(BoardGraph.circleBoxesRepository.count(x => x.red) == 8)
   }
+
+  "connections of BoardGraph" must "have a length equal to the sum of boxes repositories" in {
+    assert(BoardGraph.connections.keys.size == (234 + 195))
+  }
 }

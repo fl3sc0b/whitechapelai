@@ -9,8 +9,11 @@ object whitechapelai extends App {
   println("Welcome to whitechapelai !!")
   println("///////////////////////////")
   println()
-  val a = BoardGraph.circleBoxesRepository.filter(_.id == "1").head
-  val b = BoardGraph.circleBoxesRepository.filter(_.id == "195").head
+  val a: CircleBox = BoardGraph.getBoxFromRepository("136").asInstanceOf[CircleBox]
+  val b: CircleBox = BoardGraph.getBoxFromRepository("23").asInstanceOf[CircleBox]
+  val c: Box = BoardGraph.getBoxFromRepository("47")
+  println(c.isBoxACircle())
+  println(c.isBoxACircle("194,195.1"))
 
   val path = Algorithms.getShortestPathBetweenCircleBoxes(a, b)
   println(path mkString " => ")

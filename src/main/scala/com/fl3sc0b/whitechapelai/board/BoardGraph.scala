@@ -1,10 +1,4 @@
-  package com.fl3sc0b.whitechapelai.board
-
-  object Conventions {
-  val CIRCLEBOX_SEPARATOR: Char = ','
-  val SQUAREBOX_COUNTER_SEPARATOR: Char = '.'
-  val SQUAREBOX_SYMMETRY_SEPARATOR: Char = '*'
-}
+package com.fl3sc0b.whitechapelai.board
 
 object BoardGraph {
   val squareBoxesRepository: List[SquareBox] = List[SquareBox](
@@ -340,7 +334,7 @@ object BoardGraph {
     CircleBox("93",93,red=false,List("91,92,93.1", "93,94.1")),
     CircleBox("94",94,red=false,List("93,94.1", "94.2")),
     CircleBox("95",95,red=false,List("95.2*0", "95.2*1")),
-    CircleBox("96",96,red=false,List("78,96.1", "96,97.1")),
+    CircleBox("96",96,red=false,List("78,96.1", "96,97.1", "96,114.1")),
     CircleBox("97",97,red=false,List("78,79,80,97.0", "96,97.1", "97,117.0")),
     CircleBox("98",98,red=false,List("98.1*0", "98.1*1")),
     CircleBox("99",99,red=false,List("99,100,120.1", "99.2")),
@@ -517,7 +511,7 @@ object BoardGraph {
             "25" -> (oppositeBoxesConnections("25") ::: List.empty),
             "25,44.1" -> (oppositeBoxesConnections("25,44.1") ::: squareBoxesRepository.filter(_.id == "7,26.2")),
             "26" -> (oppositeBoxesConnections("26") ::: circleBoxesRepository.filter(_.id == "28")),
-            "26,27,44.1" -> (oppositeBoxesConnections("26,27,44.1") ::: squareBoxesRepository.filter(_.id == "44,46.1")),
+            "26,27,44.1" -> (oppositeBoxesConnections("26,27,44.1") ::: squareBoxesRepository.filter(_.id == "44,46.2")),
             "27" -> (oppositeBoxesConnections("27") ::: List.empty),
             "27,28.1" -> (oppositeBoxesConnections("27,28.1") ::: squareBoxesRepository.filter(_.id == "46,48.3")),
             "28" -> (oppositeBoxesConnections("28") ::: circleBoxesRepository.filter(_.id == "26")),
@@ -560,7 +554,7 @@ object BoardGraph {
             "44.3" -> (oppositeBoxesConnections("44.3") ::: squareBoxesRepository.filter(_.id == "24,25.1") :::
                                                                  squareBoxesRepository.filter(_.id == "43.1*0") :::
                                                                  squareBoxesRepository.filter(_.id == "44,59.2")),
-            "44,46.2" -> (oppositeBoxesConnections("44,46.2") ::: squareBoxesRepository.filter(_.id == "26,27,44.1") :::
+            "44,46.2" -> (oppositeBoxesConnections("44,46.2") ::: squareBoxesRepository.filter(_.id ==  "26,27,44.1") :::
                                                                        squareBoxesRepository.filter(_.id == "79.1")),
             "44,59.2" -> (oppositeBoxesConnections("44,59.2") ::: squareBoxesRepository.filter(_.id == "44.3") :::
                                                                        squareBoxesRepository.filter(_.id == "43.1*1")),
@@ -954,5 +948,14 @@ object BoardGraph {
       circleBoxesRepository.filter(x => x.id == id).head.adjacentSquares.map(x => squareBoxesRepository.filter(
         y => y.id == x).head)
     }
+  }
+
+  def getBoxFromRepository(id: String): Box = {
+    if (id.contains(Conventions.SQUAREBOX_COUNTER_SEPARATOR)) {
+      squareBoxesRepository.filter(x => x.id == id).head
+    } else {
+      circleBoxesRepository.filter(x => x.id == id).head
+    }
+
   }
 }

@@ -1,6 +1,5 @@
+import com.fl3sc0b.whitechapelai.board._
 import org.scalatest._
-import com.fl3sc0b.whitechapelai.board.BoardGraph
-import com.fl3sc0b.whitechapelai.board.Utilities
 
 class BoardGraphTest extends FlatSpec {
 
@@ -199,7 +198,7 @@ class BoardGraphTest extends FlatSpec {
     assert(BoardGraph.squareBoxesRepository.count(x => x.id == "156,157.1") == 1)
   }
 
-  it must "have only two elements which no are connected with any circle box" in {
+  it must "have only two elements which not are connected with any circle box" in {
     val idSquares: List[String] = BoardGraph.squareBoxesRepository.map(x => x.id)
     val idAdjacentSquares: List[List[String]] = BoardGraph.circleBoxesRepository.map(x => x.adjacentSquares)
     assert(idSquares.map(x => idAdjacentSquares.count(y => y.contains(x))).count(x => x == 0) == 2)
@@ -218,6 +217,10 @@ class BoardGraphTest extends FlatSpec {
     assert(Utilities.isSorted(numCircles))
   }
 
+  it must "verify that each of its circle boxes are directly connected with at least one square box" in {
+    assert(BoardGraph.circleBoxesRepository.forall(x => x.adjacentSquares.nonEmpty))
+  }
+
   it must "have all of its lists of adjacent square boxes composed of existing elements" in {
     val idSquares: List[List[String]] = BoardGraph.circleBoxesRepository.map(x => x.adjacentSquares)
     assert(idSquares.forall(x => x.forall(y => BoardGraph.squareBoxesRepository.count(z => z.id == y) == 1)))
@@ -229,5 +232,20 @@ class BoardGraphTest extends FlatSpec {
 
   "connections of BoardGraph" must "have a length equal to the sum of boxes repositories" in {
     assert(BoardGraph.connections.keys.size == (234 + 195))
+  }
+
+  // TODO: Add a few more tests for connections
+
+  it must "match the number of connected square boxes with each number, for each square box" in {
+    BoardGraph.connections.forall(x => x._1.contains(Conventions.SQUAREBOX_COUNTER_SEPARATOR) &&
+                                       x._1.split(Conventions.SQUAREBOX_COUNTER_SEPARATOR)(1).toInt ==
+                                       x._2.count(x => x.isInstanceOf[SquareBox]))
+  }
+
+  it must "reflect each connection mutually" in {
+    BoardGraph.connections.forall(x => x._2.count(y => y match {
+      case SquareBox(id, yellow, adjacentCircles, adjacentSquaresCount, symmetry) => adjacentCircles.contains(x._1)
+      case CircleBox(id, number, red, adjacentSquares) => adjacentSquares.contains(x._1)
+    }) >= 1)
   }
 }

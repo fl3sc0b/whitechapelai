@@ -173,4 +173,37 @@ class AlgorithmsTest extends FlatSpec {
     ))
   }
 
+  "getShortestPathBetweenCircleBoxes" must "work with main street" in {
+    val route = Algorithms.getShortestPathBetweenCircleBoxes(BoardGraph.getCircleBoxFromRepository("163"),
+                                                             BoardGraph.getCircleBoxFromRepository("23"))
+    assert(route.head == "163" && route.last == "23" && route.length == 11)
+  }
+
+  it must "work from top left to bottom right" in {
+    val route = Algorithms.getShortestPathBetweenCircleBoxes(BoardGraph.getCircleBoxFromRepository("1"),
+      BoardGraph.getCircleBoxFromRepository("195"))
+    assert(route.head == "1" && route.last == "195" && route.length == 10)
+  }
+
+  it must "work from top right to bottom left" in {
+    val route = Algorithms.getShortestPathBetweenCircleBoxes(BoardGraph.getCircleBoxFromRepository("21"),
+      BoardGraph.getCircleBoxFromRepository("188"))
+    assert(route.head == "21" && route.last == "188" && route.length == 11)
+  }
+
+  it must "offer same result in both directions" in {
+    // Sequence generated randomly ([1-97], [98-195])
+    val paths = List(("19", "152"), ("29", "135"), ("65", "141"), ("46", "157"), ("89", "109"),
+                     ("39", "162"), ("97", "171"), ("87", "124"), ("20", "99"), ("62", "167"))
+    paths.map(x => {
+      val routeA = Algorithms.getShortestPathBetweenCircleBoxes(BoardGraph.getCircleBoxFromRepository(x._1),
+        BoardGraph.getCircleBoxFromRepository(x._2))
+      val routeB = Algorithms.getShortestPathBetweenCircleBoxes(BoardGraph.getCircleBoxFromRepository(x._2),
+        BoardGraph.getCircleBoxFromRepository(x._1))
+
+      assert(routeA.head == x._1 && routeA.last == x._2 && routeB.head == x._2 && routeB.last == x._1 &&
+             routeA.length == routeB.length)
+    })
+  }
+
 }

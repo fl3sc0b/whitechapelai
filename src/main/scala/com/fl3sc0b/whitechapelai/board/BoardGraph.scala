@@ -956,6 +956,13 @@ object BoardGraph {
     } else {
       circleBoxesRepository.filter(x => x.id == id).head
     }
+  }
 
+  def getCircleBoxFromRepository(id: String): CircleBox = {
+    circleBoxesRepository.filter(x => x.id == id).head
+  }
+
+  def getSquareBoxFromRepository(id: String): SquareBox = {
+    squareBoxesRepository.filter(x => x.id == id).head
   }
 }

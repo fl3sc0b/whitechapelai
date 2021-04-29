@@ -9,12 +9,18 @@ object whitechapelai extends App {
   println("Welcome to whitechapelai !!")
   println("///////////////////////////")
   println()
-  val a: CircleBox = BoardGraph.getBoxFromRepository("136").asInstanceOf[CircleBox]
-  val b: CircleBox = BoardGraph.getBoxFromRepository("23").asInstanceOf[CircleBox]
-  val c: Box = BoardGraph.getBoxFromRepository("47")
-  println(c.isBoxACircle())
-  println(c.isBoxACircle("194,195.1"))
+  //val a: CircleBox = BoardGraph.getBoxFromRepository("78").asInstanceOf[CircleBox]
+  //val b: CircleBox = BoardGraph.getBoxFromRepository("187").asInstanceOf[CircleBox]
+  //val c: Box = BoardGraph.getBoxFromRepository("47")
+  //println(c.isBoxACircle())
+  //println(c.isBoxACircle("194,195.1"))
+  //val a = BoardGraph.getCircleBoxFromRepository("59")
+  //val b = BoardGraph.getCircleBoxFromRepository("90")
 
-  val path = Algorithms.getShortestPathBetweenCircleBoxes(a, b)
-  println(path mkString " => ")
+  //val path = Algorithms.getShortestPathBetweenCircleBoxes(a, b)
+  //println(path mkString " => ")
+  //println(HideoutAnalyzer.getMinDistanceFromRed("72"))
+  //println(HideoutAnalyzer.getStdDistanceFromRed("146"))
+  //println(HideoutAnalyzer.getNumberOfConnections("70"))
+  println(HideoutAnalyzer.hideoutAnalysis)
 }

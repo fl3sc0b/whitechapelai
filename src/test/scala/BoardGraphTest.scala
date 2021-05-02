@@ -243,7 +243,7 @@ class BoardGraphTest extends FlatSpec {
   }
 
   it must "reflect each connection mutually" in {
-    BoardGraph.connections.forall(x => x._2.count(y => y match {
+    BoardGraph.connections.forall(x => x._2.count(_ match {
       case SquareBox(id, yellow, adjacentCircles, adjacentSquaresCount, symmetry) => adjacentCircles.contains(x._1)
       case CircleBox(id, number, red, adjacentSquares) => adjacentSquares.contains(x._1)
     }) >= 1)

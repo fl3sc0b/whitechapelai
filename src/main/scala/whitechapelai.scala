@@ -1,5 +1,6 @@
 
 import com.fl3sc0b.whitechapelai.board._
+import com.fl3sc0b.whitechapelai.jack._
 
 /**
  * Example of main class
@@ -22,5 +23,7 @@ object whitechapelai extends App {
   //println(HideoutAnalyzer.getMinDistanceFromRed("72"))
   //println(HideoutAnalyzer.getStdDistanceFromRed("146"))
   //println(HideoutAnalyzer.getNumberOfConnections("70"))
-  println(HideoutAnalyzer.hideoutAnalysis)
+  //println(HideoutAnalyzer.hideoutAnalysis)
+  //println(AIEngine.hideoutsOrdered.length)
+  println(AIEngine.chooseHideout())
 }

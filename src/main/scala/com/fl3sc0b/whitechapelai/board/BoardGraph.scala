@@ -1,6 +1,15 @@
 package com.fl3sc0b.whitechapelai.board
 
+/** Model used to represent the board. Main components are:
+ *
+ *  - [[squareBoxesRepository]]: A list of [[SquareBox]]es that represent all the Square boxes on the board
+ *  - [[circleBoxesRepository]]: A list of [[CircleBox]]es that represent all the Circle boxes on the board
+ *
+ * Each of these repositories only contains connections to the opposite box type, so another Map object is needed to
+ * model the full set of connections between boxes of any kind. That's the [[connections]] member
+ */
 object BoardGraph {
+  /** A list of [[SquareBox]]es that represent all the Square boxes on the board */
   val squareBoxesRepository: List[SquareBox] = List[SquareBox](
     SquareBox(id="0.2",yellow=false,List.empty,2),
     SquareBox(id="0.3",yellow=false,List.empty,3),
@@ -238,6 +247,7 @@ object BoardGraph {
     SquareBox(id="99.2",yellow=false,List("99"),2)
   )
 
+  /** A list of [[CircleBox]]es that represent all the Circle boxes on the board */
   val circleBoxesRepository: List[CircleBox] = List[CircleBox](
     CircleBox("1",1,red=false,List("1,7.1", "1,26.1")),
     CircleBox("2",2,red=false,List("2.2", "2,3.1")),
@@ -436,6 +446,7 @@ object BoardGraph {
     CircleBox("195",195,red=false,List("173,195.2", "194,195.1"))
   )
 
+  /** A Map that represent all the connections between [[Box]]es of each type: [[SquareBox]]es and [[CircleBox]]es */
   val connections: Map[String, List[Box]] = Map[String, List[Box]](
     "0.2" -> (oppositeBoxesConnections("0.2") ::: squareBoxesRepository.filter(_.id == "156,157.1") :::
                                                                squareBoxesRepository.filter(_.id == "171,183.1")),
@@ -940,6 +951,11 @@ object BoardGraph {
             "195" -> (oppositeBoxesConnections("195") ::: List.empty)
   )
 
+  /**
+   * Gets the list of connections to the opposite box type for a particular box
+   * @param id Name of the selected box
+   * @return List of connections to the opposite box type
+   */
   def oppositeBoxesConnections(id: String): List[Box] = {
     if (id.contains(Conventions.SQUAREBOX_COUNTER_SEPARATOR)) {
       squareBoxesRepository.filter(x => x.id == id).head.adjacentCircles.map(x => circleBoxesRepository.filter(
@@ -950,6 +966,11 @@ object BoardGraph {
     }
   }
 
+  /**
+   * Given the name of a box, gets the corresponding [[Box]] object from its proper repository
+   * @param id Name of the box
+   * @return [[Box]] object, if found
+   */
   def getBoxFromRepository(id: String): Box = {
     if (id.contains(Conventions.SQUAREBOX_COUNTER_SEPARATOR)) {
       squareBoxesRepository.filter(x => x.id == id).head
@@ -958,10 +979,20 @@ object BoardGraph {
     }
   }
 
+  /**
+   * Given the name of a circle box, gets the corresponding [[CircleBox]] object from its proper repository
+   * @param id Name of the circle box
+   * @return [[CircleBox]] object, if found
+   */
   def getCircleBoxFromRepository(id: String): CircleBox = {
     circleBoxesRepository.filter(x => x.id == id).head
   }
 
+  /**
+   * Given the name of a square box, gets the corresponding [[SquareBox]] object from its proper repository
+   * @param id Name of the square box
+   * @return [[SquareBox]] object, if found
+   */
   def getSquareBoxFromRepository(id: String): SquareBox = {
     squareBoxesRepository.filter(x => x.id == id).head
   }

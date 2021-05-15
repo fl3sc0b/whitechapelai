@@ -1,5 +1,10 @@
 import com.fl3sc0b.whitechapelai.board._
+import com.fl3sc0b.whitechapelai.utilities.General
 import org.scalatest._
+
+// Tests for BoardGraph class
+// Currently tested:
+//  *Fields: squareBoxesRepository, circleBoxesRepository and connections
 
 class BoardGraphTest extends FlatSpec {
 
@@ -9,7 +14,7 @@ class BoardGraphTest extends FlatSpec {
 
   it must "have all of its elements inside adjacentCircles in ascending order" in {
     val numCircles: List[List[Int]] = BoardGraph.squareBoxesRepository.map(x => x.adjacentCircles.map(x => x.toInt))
-    assert(numCircles.forall(x => Utilities.isSorted(x)))
+    assert(numCircles.forall(x => General.isSorted(x)))
   }
 
   it must "contain only 7 yellow square boxes" in {
@@ -214,7 +219,7 @@ class BoardGraphTest extends FlatSpec {
 
   it must "have its numerical versions of the ids in ascending order" in {
     val numCircles: List[Short] = BoardGraph.circleBoxesRepository.map(x => x.number)
-    assert(Utilities.isSorted(numCircles))
+    assert(General.isSorted(numCircles))
   }
 
   it must "verify that each of its circle boxes are directly connected with at least one square box" in {
@@ -230,7 +235,7 @@ class BoardGraphTest extends FlatSpec {
     assert(BoardGraph.circleBoxesRepository.count(x => x.red) == 8)
   }
 
-  "connections of BoardGraph" must "have a length equal to the sum of boxes repositories" in {
+  "connections" must "have a length equal to the sum of boxes repositories" in {
     assert(BoardGraph.connections.keys.size == (234 + 195))
   }
 
@@ -243,9 +248,9 @@ class BoardGraphTest extends FlatSpec {
   }
 
   it must "reflect each connection mutually" in {
-    BoardGraph.connections.forall(x => x._2.count(_ match {
+    BoardGraph.connections.forall(x => x._2.count {
       case SquareBox(id, yellow, adjacentCircles, adjacentSquaresCount, symmetry) => adjacentCircles.contains(x._1)
       case CircleBox(id, number, red, adjacentSquares) => adjacentSquares.contains(x._1)
-    }) >= 1)
+    } >= 1)
   }
 }

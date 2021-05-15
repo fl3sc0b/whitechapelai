@@ -1,5 +1,10 @@
-import com.fl3sc0b.whitechapelai.board.{Algorithms, BoardGraph, CircleBox}
+import com.fl3sc0b.whitechapelai.board.{BoardGraph, CircleBox}
+import com.fl3sc0b.whitechapelai.jack.Algorithms
 import org.scalatest._
+
+// Tests for Algorithms class
+// Currently tested:
+//  *Methods: getAdjacentCircleBoxes and getShortestPathBetweenCircleBoxes
 
 class AlgorithmsTest extends FlatSpec {
 

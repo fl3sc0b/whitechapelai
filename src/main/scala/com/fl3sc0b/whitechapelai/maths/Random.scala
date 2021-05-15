@@ -1,5 +1,6 @@
 package com.fl3sc0b.whitechapelai.maths
 
+/** Provides auxiliary methods to generate random numbers */
 object Random {
   /**
    * Gets a random element from a ordered collection of elements whose probability is uniformly distributed

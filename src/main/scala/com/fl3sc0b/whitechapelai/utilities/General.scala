@@ -1,6 +1,7 @@
-package com.fl3sc0b.whitechapelai.board
+package com.fl3sc0b.whitechapelai.utilities
 
-object Utilities {
+/** Provides a set of auxiliary methods */
+object General {
   /** Checks if a generic sequence is sorted in ascending order
    *
    * @author Lee and Alex from stackoverflow.com

@@ -1,11 +1,20 @@
-package com.fl3sc0b.whitechapelai.board
+package com.fl3sc0b.whitechapelai.jack
+
+import com.fl3sc0b.whitechapelai.board.{BoardGraph, Box, CircleBox, SquareBox}
 
 import scala.collection.mutable
 
+/** Collection of graph algorithms to be applied on the board */
 object Algorithms {
-  def getAdjacentCircleBoxes(start: CircleBox) : List[CircleBox] = {
-    def auxiliar(node: String, finished: mutable.MutableList[String]) : Set[String] = {
-      val nodesFromNode : List[Box] = BoardGraph.connections(node)
+  /**
+   * Gets the whole collection of [[com.fl3sc0b.whitechapelai.board.CircleBox]] that are connected with the selected [[com.fl3sc0b.whitechapelai.board.CircleBox]]
+   *
+   * @param start A [[com.fl3sc0b.whitechapelai.board.CircleBox]] whose connections are being asked for
+   * @return A list of [[com.fl3sc0b.whitechapelai.board.CircleBox]] that are connected to the selected [[com.fl3sc0b.whitechapelai.board.CircleBox]]
+   */
+  def getAdjacentCircleBoxes(start: CircleBox): List[CircleBox] = {
+    def auxiliary(node: String, finished: mutable.MutableList[String]): Set[String] = {
+      val nodesFromNode: List[Box] = BoardGraph.connections(node)
       finished += node
       nodesFromNode.map {
         case CircleBox(id, _, _, _) => if (!finished.contains(id)) {
@@ -14,14 +23,22 @@ object Algorithms {
         } else Set("0")
         case SquareBox(id, _, _, _, _) => if (!finished.contains(id)) {
           finished += id
-          auxiliar(id, finished)
+          auxiliary(id, finished)
         } else Set("0")
       }.foldLeft(Set("0"))(_ ++ _) - "0"
     }
-    auxiliar(start.id, new mutable.MutableList[String]).map(x => BoardGraph.circleBoxesRepository.filter(_.id == x).head).toList
+
+    auxiliary(start.id, new mutable.MutableList[String]).map(x => BoardGraph.circleBoxesRepository.filter(_.id == x).head).toList
   }
 
-  def getShortestPathBetweenCircleBoxes(start: CircleBox, end: CircleBox) : List[String] = {
+  /**
+   * Gets one of the shortest routes (if there are more than one) between two [[com.fl3sc0b.whitechapelai.board.CircleBox]]
+   *
+   * @param start Source [[com.fl3sc0b.whitechapelai.board.CircleBox]]
+   * @param end   Destination [[com.fl3sc0b.whitechapelai.board.CircleBox]]
+   * @return An ordered list of Strings with the names of the [[com.fl3sc0b.whitechapelai.board.CircleBox]] that conform the route
+   */
+  def getShortestPathBetweenCircleBoxes(start: CircleBox, end: CircleBox): List[String] = {
     def bfs_node(node: CircleBox, u: String, dest: String, pred: mutable.ArrayBuffer[String], queue: mutable.Queue[String], visited: mutable.ArrayBuffer[Boolean]): Boolean = {
       if (!visited(node.number)) {
         visited(node.number) = true
@@ -42,14 +59,15 @@ object Algorithms {
       } else new mutable.ArrayBuffer[String]()
     }
 
+    // Model used to compute the shortest route. Requires initialization
     val pred = new mutable.ArrayBuffer[String](196)
     val visited = new mutable.ArrayBuffer[Boolean](196)
     val queue = new mutable.Queue[String]()
 
-    for (i <- 0 to 195) {
+    (0 to 195).map(x => {
       visited += false
       pred += "-1"
-    }
+    })
 
     visited(start.number) = true
     queue.enqueue(start.id)

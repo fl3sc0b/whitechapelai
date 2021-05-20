@@ -7,3 +7,11 @@ Also, part of this project is about experimentation with the Scala language. An 
 You can get more information about this master piece of board gaming in its official website: https://www.giochiunitiinternational.com/project/letters-from-whitechapel/
 
 Order your copy today! Totally recommended!
+## Current status
+I'm looking for contributors to speed up the development a bit (see section below). Still, some progress has been made:
+- Model for the board :heavy_check_mark:
+- Jack to choose his hideout analytically :heavy_check_mark:
+- Package set up for unit testing with Scalatest :heavy_check_mark:
+- Package set up for metadocumentation with Scaladoc :heavy_check_mark:
+- Wiki :construction:
+- First part: Hell :construction:

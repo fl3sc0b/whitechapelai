@@ -16,7 +16,10 @@ I'm looking for contributors to speed up the development a bit (see section belo
 - Wiki :construction:
 - First part: Hell :construction:
 ## To contribute
-There is some fun stuff here still to be completed: Writting unit tests, Designing heuristics, Choosing and adapting well-known AI algorithms, Implementing gameplay, and so on. Of course, applying Scala to such a project is always a plus... Do you want to contribute ? Send me an email to ______
+There is some fun stuff here still to be completed: Writting unit tests, Designing heuristics, Choosing and adapting well-known AI algorithms, Implementing gameplay, and so on. Of course, applying Scala to such a project is always a plus... Do you want to contribute ? Send me an email to the email address below:
+
+![my-email-address](https://user-images.githubusercontent.com/38964606/119236225-8c376200-bb36-11eb-8120-4d2eff7878df.png)
+
 ## Setting up your development environment
 Currently the project is configured to be run with SBT virtual environment using Scala 2.12 and JDK 11 (TODO: Migrate to a openJDK platform)
 ### Steps

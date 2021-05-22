@@ -27,6 +27,17 @@ Currently the project is configured to be run with SBT virtual environment using
 ``` bash
 git clone https://github.com/fl3sc0b/whitechapelai.git 
 ```
-2. Install SBT (https://www.scala-sbt.org/download.html)
-3. Install JDK 11 (https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
-4. Install IntelliJ IDEA Community Edition (https://www.jetbrains.com/idea)
+2. Install SBT (https://www.scala-sbt.org/download.html).
+3. Install JDK 11 (https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+4. Install IntelliJ IDEA Community Edition (https://www.jetbrains.com/idea).
+5. Install Scala SDK and extensions for IntelliJ (Configure/Plugins).
+6. Create new project. Select Scala and sbt project type.
+7. In Location, select the path which contains the whitechapelai repo. Check that JDK and Scala versions are 11 and 2.12.11 respectively.
+8. Wait while Sbt loads and sets up the environment.
+9. Create a Run/Debug configuration for the main project. Select "Add Configuration" in the top bar, click on + to add a new one, and select "sbt Task".
+10. Write "Run Whitechapelai" in the Name textbox. In the "Tasks" textbox, write "run" and click on "OK".
+11. Click on "Run selected configuration" (the green play button in the top bar) and see if sbt is able to compile the project and run the main class.
+12. Create a Run/Debug configuration for unit testing. Select "Edit Configurations" in the top bar, click on + to add a new one, and select "ScalaTest".
+13. Write "Run Whitechapelai Test Suite" in the Name textbox. Select "All in package" for "Test kind" and "In whole project" for "Search the tests" comboboxes. Check that "whitechapelai" is marked as "Use classpath of module" combobox. Rembember to select JRE version 11 and press OK.
+14. Select "Run Whitechapelai Test Suite" profile and click on "Run selected configuration" (the green play button in the top bar) and check if the entire set of tests provided pass successfully.
+ 
